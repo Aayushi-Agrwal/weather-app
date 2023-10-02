@@ -16,6 +16,11 @@ import {
   faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  WeatherDetailsDay,
+  WeatherDivForADay,
+  WeatherDivForAWeek,
+} from "./Components";
 
 export default function Home() {
   return (
@@ -39,22 +44,10 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <p className="flex items-center gap-4 text-sm">
-            <FontAwesomeIcon icon={faDroplet} size="1x" className="w-4" />
-            Humidity: 23 %
-          </p>
-          <p className="flex items-center gap-4 text-sm">
-            <FontAwesomeIcon icon={faWind} size="1x" className="w-4" />
-            Wind: 2.06 at 40°
-          </p>
-          <p className="flex items-center gap-4 text-sm">
-            <FontAwesomeIcon icon={faEye} size="1x" className="w-4" />
-            Visibility: 6000
-          </p>
-          <p className="flex items-center gap-4 text-sm">
-            <FontAwesomeIcon icon={faGauge} size="1x" className="w-4" />
-            Pressure: 1007
-          </p>
+          <WeatherDetailsDay icon={faDroplet} text="Humidity: 23%" />
+          <WeatherDetailsDay icon={faWind} text="Wind: 2.06 at 40°" />
+          <WeatherDetailsDay icon={faEye} text="Visibility: 6000" />
+          <WeatherDetailsDay icon={faGauge} text="Pressure: 1007" />
         </div>
 
         <div className="flex gap-8">
@@ -69,8 +62,8 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <div className="w-5/6 h-screen px-24 flex flex-col justify-around">
-        <div>
+      <div className="w-5/6 h-screen flex flex-col justify-around">
+        <div className="px-24">
           <p>
             <FontAwesomeIcon icon={faMapPin} size="1x" /> Abomsa
           </p>
@@ -87,154 +80,23 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex w-full justify-around">
-          <div className="">
-            <h1 className="text-4xl">10°</h1>
-            <div className="text-sm py-2">Clear</div>
-            <div className="text-sm">
-              <FontAwesomeIcon icon={faUmbrella} />: 1%
-            </div>
-            <h1 className="text-xs py-8 flex flex-col gap-2 items-center">
-              <p>
-                <FontAwesomeIcon icon={faClock} /> 00:00
-              </p>
-              <p>Today</p>
-            </h1>
-          </div>
-          <div className="">
-            <h1 className="text-4xl">10°</h1>
-            <div className="text-sm py-2">Clear</div>
-            <div className="text-sm">
-              <FontAwesomeIcon icon={faUmbrella} />: 1%
-            </div>
-            <h1 className="text-xs py-8 flex flex-col gap-2 items-center">
-              <p>
-                <FontAwesomeIcon icon={faClock} /> 00:00
-              </p>
-              <p>Today</p>
-            </h1>
-          </div>
-          <div className="">
-            <h1 className="text-4xl">10°</h1>
-            <div className="text-sm py-2">Clear</div>
-            <div className="text-sm">
-              <FontAwesomeIcon icon={faUmbrella} />: 1%
-            </div>
-            <h1 className="text-xs py-8 flex flex-col gap-2 items-center">
-              <p>
-                <FontAwesomeIcon icon={faClock} /> 00:00
-              </p>
-              <p>Today</p>
-            </h1>
-          </div>
-          <div className="">
-            <h1 className="text-4xl">10°</h1>
-            <div className="text-sm py-2">Clear</div>
-            <div className="text-sm">
-              <FontAwesomeIcon icon={faUmbrella} />: 1%
-            </div>
-            <h1 className="text-xs py-8 flex flex-col gap-2 items-center">
-              <p>
-                <FontAwesomeIcon icon={faClock} /> 00:00
-              </p>
-              <p>Today</p>
-            </h1>
-          </div>
-          <div className="">
-            <h1 className="text-4xl">10°</h1>
-            <div className="text-sm py-2">Clear</div>
-            <div className="text-sm">
-              <FontAwesomeIcon icon={faUmbrella} />: 1%
-            </div>
-            <h1 className="text-xs py-8 flex flex-col gap-2 items-center">
-              <p>
-                <FontAwesomeIcon icon={faClock} /> 00:00
-              </p>
-              <p>Today</p>
-            </h1>
-          </div>
-          <div className="">
-            <h1 className="text-4xl">10°</h1>
-            <div className="text-sm py-2">Clear</div>
-            <div className="text-sm">
-              <FontAwesomeIcon icon={faUmbrella} />: 1%
-            </div>
-            <h1 className="text-xs py-8 flex flex-col gap-2 items-center">
-              <p>
-                <FontAwesomeIcon icon={faClock} /> 00:00
-              </p>
-              <p>Today</p>
-            </h1>
-          </div>
-          <div className="">
-            <h1 className="text-4xl">10°</h1>
-            <div className="text-sm py-2">Clear</div>
-            <div className="text-sm">
-              <FontAwesomeIcon icon={faUmbrella} />: 1%
-            </div>
-            <h1 className="text-xs py-8 flex flex-col gap-2 items-center">
-              <p>
-                <FontAwesomeIcon icon={faClock} /> 00:00
-              </p>
-              <p>Today</p>
-            </h1>
-          </div>
-          <div className="">
-            <h1 className="text-4xl">10°</h1>
-            <div className="text-sm py-2">Clear</div>
-            <div className="text-sm">
-              <FontAwesomeIcon icon={faUmbrella} />: 1%
-            </div>
-            <h1 className="text-xs py-8 flex flex-col gap-2 items-center">
-              <p>
-                <FontAwesomeIcon icon={faClock} /> 00:00
-              </p>
-              <p>Today</p>
-            </h1>
-          </div>
+        <div className="flex w-full justify-around px-16">
+          <WeatherDivForADay />
+          <WeatherDivForADay />
+          <WeatherDivForADay />
+          <WeatherDivForADay />
+          <WeatherDivForADay />
+          <WeatherDivForADay />
+          <WeatherDivForADay />
+          <WeatherDivForADay />
         </div>
 
-        <div className="flex justify-around">
-          <div className="">
-            <h1 className="text-4xl">10°</h1>
-            <div className="text-sm py-2">Clear</div>
-            <div className="text-sm">
-              <FontAwesomeIcon icon={faUmbrella} />: 1%
-            </div>
-            <h1 className="text-xs py-12">12/01/20</h1>
-          </div>
-          <div className="">
-            <h1 className="text-4xl">10°</h1>
-            <div className="text-sm py-2">Clear</div>
-            <div className="text-sm">
-              <FontAwesomeIcon icon={faUmbrella} />: 1%
-            </div>
-            <h1 className="text-xs py-12">12/01/20</h1>
-          </div>
-          <div className="">
-            <h1 className="text-4xl">10°</h1>
-            <div className="text-sm py-2">Clear</div>
-            <div className="text-sm">
-              <FontAwesomeIcon icon={faUmbrella} />: 1%
-            </div>
-            <h1 className="text-xs py-12">12/01/20</h1>
-          </div>
-          <div className="">
-            <h1 className="text-4xl">10°</h1>
-            <div className="text-sm py-2">Clear</div>
-            <div className="text-sm">
-              <FontAwesomeIcon icon={faUmbrella} />: 1%
-            </div>
-            <h1 className="text-xs py-12">12/01/20</h1>
-          </div>
-          <div className="">
-            <h1 className="text-4xl">10°</h1>
-            <div className="text-sm py-2">Clear</div>
-            <div className="text-sm">
-              <FontAwesomeIcon icon={faUmbrella} />: 1%
-            </div>
-            <h1 className="text-xs py-12">12/01/20</h1>
-          </div>
+        <div className="flex justify-around border-t-2 border-slate-400 pt-8">
+          <WeatherDivForAWeek />
+          <WeatherDivForAWeek />
+          <WeatherDivForAWeek />
+          <WeatherDivForAWeek />
+          <WeatherDivForAWeek />
         </div>
       </div>
     </main>
