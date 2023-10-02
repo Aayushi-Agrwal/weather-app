@@ -21,8 +21,10 @@ import {
   WeatherDivForADay,
   WeatherDivForAWeek,
 } from "./Components";
+import { getLocation } from "./Api";
 
 export default function Home() {
+  getLocation();
   return (
     <main className="flex min-h-screen items-center justify-between bg-[url(/storm-clouds.png)] bg-no-repeat bg-cover text-white">
       <div className="border-r-2 border-x-slate-400 w-1/6 h-screen flex flex-col px-2 items-center justify-around py-12">
@@ -50,7 +52,7 @@ export default function Home() {
           <WeatherDetailsDay icon={faGauge} text="Pressure: 1007" />
         </div>
 
-        <div className="flex gap-8">
+        <div className="flex gap-8 mb-24">
           <p className="flex gap-2 items-center">
             <FontAwesomeIcon icon={faSun} size="1x" color="yellow" />
             19000
