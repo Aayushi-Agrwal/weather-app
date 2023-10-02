@@ -1,14 +1,23 @@
-export function getLocation() {
-  const successCallback = (position: GeolocationPosition) => {
-    console.log(position);
-  };
+import { useState } from "react";
 
-  const errorCallback = (error: any) => {
-    console.log(error);
-  };
+export const getLocation = () => {
+  const [lat, setLat] = useState<number>();
+  const [lng, setLng] = useState<number>();
+  const [status, setStatus] = useState<string>("");
 
-  return navigator.geolocation.getCurrentPosition(
-    successCallback,
-    errorCallback
-  );
-}
+  if (!navigator.geolocation) {
+    setStatus("Geolocation is not supported by your browser");
+  } else {
+    setStatus("Locating...");
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setStatus("");
+        setLat(position.coords.latitude);
+        setLng(position.coords.longitude);
+      },
+      () => {
+        setStatus("Unable to retrieve your location");
+      }
+    );
+  }
+};

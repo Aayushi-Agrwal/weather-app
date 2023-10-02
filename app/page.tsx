@@ -1,4 +1,5 @@
-import Image from "next/image";
+"use client";
+
 import {
   faTemperatureLow,
   faUmbrella,
@@ -21,16 +22,62 @@ import {
   WeatherDivForADay,
   WeatherDivForAWeek,
 } from "./Components";
-import { getLocation } from "./Api";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  getLocation();
+  const [locData, setLocData] = useState([]);
+  const [location, setLocation] = useState<{
+    latitude: GeolocationPosition;
+    longitude: GeolocationPosition;
+  }>();
+
+  const fetchApiData = async ({
+    latitude,
+    longitude,
+  }: {
+    latitude: GeolocationPosition;
+    longitude: GeolocationPosition;
+  }) => {
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=afa686b6ddf43261ad3dc386077429f8`
+    );
+    const data = await res.json();
+    setLocData(data);
+  };
+
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      console.log("Geolocation is not supported by your browser");
+    } else {
+      console.log("Locating...");
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log("Location fetched:", position);
+          setLocation(location);
+        },
+        (error) => {
+          console.error("Error retrieving location:", error);
+        }
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    // Fetch data from API if `location` object is set
+    if (location) {
+      fetchApiData(location);
+    }
+  }, [location]);
+
   return (
     <main className="flex min-h-screen items-center justify-between bg-[url(/storm-clouds.png)] bg-no-repeat bg-cover text-white">
       <div className="border-r-2 border-x-slate-400 w-1/6 h-screen flex flex-col px-2 items-center justify-around py-12">
         <div className="flex gap-2">
           <h1 className="text-6xl">
-            20° <p className="text-sm">Feels like: 20</p>
+            20
+            <p className="text-sm" onClick={() => console.log("pos", locData)}>
+              Feels like: 20
+            </p>
           </h1>
           <div className="py-1">
             <div className="flex gap-2 items-center">
