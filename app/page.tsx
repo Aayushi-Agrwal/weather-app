@@ -25,11 +25,10 @@ import {
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [locData, setLocData] = useState([]);
-  const [location, setLocation] = useState<{
-    latitude: GeolocationPosition;
-    longitude: GeolocationPosition;
-  }>();
+  const [locData, setLocData] = useState<any>([]);
+  const [location, setLocation] = useState<any>();
+  // latitude: GeolocationPosition;
+  // longitude: GeolocationPosition;
 
   const fetchApiData = async ({
     latitude,
@@ -39,7 +38,7 @@ export default function Home() {
     longitude: GeolocationPosition;
   }) => {
     const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=afa686b6ddf43261ad3dc386077429f8`
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&appid=afa686b6ddf43261ad3dc386077429f8`
     );
     const data = await res.json();
     setLocData(data);
@@ -53,7 +52,7 @@ export default function Home() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           console.log("Location fetched:", position);
-          setLocation(location);
+          setLocation(position);
         },
         (error) => {
           console.error("Error retrieving location:", error);
