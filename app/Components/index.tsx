@@ -2,18 +2,26 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faClock, faUmbrella } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const WeatherDivForADay = () => (
+interface WeatherForADay {
+  temp: number;
+  name: string;
+  time: string;
+  day: string;
+}
+export const WeatherDivForADay: React.FC<WeatherForADay> = ({
+  temp,
+  name,
+  time,
+  day,
+}) => (
   <div className="backdrop-sepia-0 bg-black/20 w-24 flex flex-col py-4 items-center">
-    <h1 className="text-4xl">10°</h1>
-    <div className="text-sm py-2">Clear</div>
-    <div className="text-sm">
-      <FontAwesomeIcon icon={faUmbrella} />: 1%
-    </div>
+    <h1 className="text-4xl">{temp}°</h1>
+    <div className="text-sm py-2">{name}</div>
     <h1 className="text-xs pt-8 flex flex-col gap-2 items-center">
       <p>
-        <FontAwesomeIcon icon={faClock} /> 00:00
+        <FontAwesomeIcon icon={faClock} /> {time}
       </p>
-      <p>Today</p>
+      <p>{day}</p>
     </h1>
   </div>
 );

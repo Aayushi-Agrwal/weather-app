@@ -37,7 +37,7 @@ interface WeatherData {
         humidity: number;
         pressure: number;
       };
-      weather: [{ description: string }];
+      weather: [{ name: string; description: string }];
       wind: {
         speed: number;
         deg: number;
@@ -161,14 +161,22 @@ export default function Home() {
             </div>
 
             <div className="flex w-full justify-around px-16">
+              {weatherData?.list.slice(0, 8).map((data) => (
+                <WeatherDivForADay
+                  temp={Math.round(data.main.temp - 273)}
+                  name={data.weather[0].name}
+                  time={data.dt_txt}
+                  day={""}
+                />
+              ))}
+              {/* <WeatherDivForADay temp={0} name={""} rain={0} time={""} day={""} />
               <WeatherDivForADay />
               <WeatherDivForADay />
               <WeatherDivForADay />
               <WeatherDivForADay />
               <WeatherDivForADay />
               <WeatherDivForADay />
-              <WeatherDivForADay />
-              <WeatherDivForADay />
+              <WeatherDivForADay /> */}
             </div>
 
             <div className="flex justify-around border-t-2 border-slate-400 pt-8">
