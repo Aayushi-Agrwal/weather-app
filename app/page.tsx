@@ -1,13 +1,6 @@
 "use client";
 
 import {
-  faTemperatureLow,
-  faUmbrella,
-} from "@fortawesome/free-solid-svg-icons";
-import { faTemperatureHigh } from "@fortawesome/free-solid-svg-icons";
-import { faCloud } from "@fortawesome/free-solid-svg-icons";
-import { faMapPin } from "@fortawesome/free-solid-svg-icons";
-import {
   faDroplet,
   faWind,
   faEye,
@@ -15,6 +8,11 @@ import {
   faClock,
   faSun,
   faMoon,
+  faMapPin,
+  faCloud,
+  faTemperatureHigh,
+  faTemperatureLow,
+  faUmbrella,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,59 +20,58 @@ import {
   WeatherDivForADay,
   WeatherDivForAWeek,
 } from "./Components";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
+import axios from "axios";
+
+interface WeatherData {
+  city: {
+    name: string;
+  };
+  list: [{ main: { temp: number } }];
+}
 
 export default function Home() {
-  const [locData, setLocData] = useState<any>([]);
-  const [location, setLocation] = useState<any>();
-  // latitude: GeolocationPosition;
-  // longitude: GeolocationPosition;
+  const [location, setLocation] = useState<any>(null);
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
-  const fetchApiData = async ({
-    latitude,
-    longitude,
-  }: {
-    latitude: GeolocationPosition;
-    longitude: GeolocationPosition;
-  }) => {
-    const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&appid=afa686b6ddf43261ad3dc386077429f8`
+  useEffect(() => {
+    // Get user's geolocation
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+
+        // Set latitude and longitude as the user's location
+        setLocation({ latitude, longitude });
+
+        // Fetch weather data using OpenWeatherMap API
+        const weatherApiKey = "YOUR_OPENWEATHERMAP_API_KEY";
+        const weatherApiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=afa686b6ddf43261ad3dc386077429f8`;
+
+        axios
+          .get(weatherApiUrl)
+          .then((weatherResponse) => {
+            setWeatherData(weatherResponse.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching weather data:", error);
+          });
+      },
+      (error) => {
+        console.error("Error getting geolocation:", error);
+      }
     );
-    const data = await res.json();
-    setLocData(data);
-  };
-
-  useEffect(() => {
-    if (!navigator.geolocation) {
-      console.log("Geolocation is not supported by your browser");
-    } else {
-      console.log("Locating...");
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          console.log("Location fetched:", position);
-          setLocation(position);
-        },
-        (error) => {
-          console.error("Error retrieving location:", error);
-        }
-      );
-    }
-  }, []);
-
-  useEffect(() => {
-    // Fetch data from API if `location` object is set
-    if (location) {
-      fetchApiData(location);
-    }
-  }, [location]);
+  }, []); // Empty dependency array ensures that this effect runs once after the initial render
 
   return (
     <main className="flex min-h-screen items-center justify-between bg-[url(/storm-clouds.png)] bg-no-repeat bg-cover text-white">
       <div className="border-r-2 border-x-slate-400 w-1/6 h-screen flex flex-col px-2 items-center justify-around py-12">
         <div className="flex gap-2">
           <h1 className="text-6xl">
-            20
-            <p className="text-sm" onClick={() => console.log("pos", locData)}>
+            {weatherData?.list[0].main.temp}
+            <p
+              className="text-sm"
+              onClick={() => console.log(weatherData?.list[0].main.temp)}
+            >
               Feels like: 20
             </p>
           </h1>
