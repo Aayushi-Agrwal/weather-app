@@ -37,11 +37,13 @@ interface WeatherData {
         humidity: number;
         pressure: number;
       };
+      weather: [{ description: string }];
       wind: {
         speed: number;
         deg: number;
       };
       visibility: number;
+      dt_txt: string;
     }
   ];
 }
@@ -141,34 +143,20 @@ export default function Home() {
                 text={`Pressure: ${weatherData?.list[0].main.pressure} hPa `}
               />
             </div>
-
-            <div className="flex gap-8 mb-24">
-              <p className="flex gap-2 items-center">
-                <FontAwesomeIcon icon={faSun} size="1x" color="yellow" />
-                19000
-              </p>
-
-              <p className="flex gap-2 items-center">
-                <FontAwesomeIcon icon={faMoon} size="1x" color="grey" />
-                19000
-              </p>
-            </div>
           </div>
           <div className="w-5/6 h-screen flex flex-col justify-around">
             <div className="px-24">
               <p>
-                <FontAwesomeIcon icon={faMapPin} size="1x" /> Abomsa
+                <FontAwesomeIcon icon={faMapPin} size="1x" />{" "}
+                {weatherData && weatherData.city.name}
               </p>
-              {/* name */}
-              <h2 className="text-6xl">
-                Few Clouds <FontAwesomeIcon icon={faCloud} size="1x" />
+              <h2 className="text-6xl capitalize">
+                {weatherData && weatherData.list[0].weather[0].description}{" "}
+                <FontAwesomeIcon icon={faCloud} size="1x" />
               </h2>
-              {/* Description */}
 
               <p className="flex gap-2 items-center py-2 text-sm">
-                12/01/20
-                <FontAwesomeIcon icon={faClock} size="1x" />
-                19000
+                {weatherData && weatherData.list[0].dt_txt}
               </p>
             </div>
 
