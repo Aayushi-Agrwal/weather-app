@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  Loading,
   WeatherDetailsDay,
   WeatherDivForADay,
   WeatherDivForAWeek,
@@ -90,7 +91,7 @@ export default function Home() {
   return (
     <>
       {loading ? (
-        <div>Loading</div>
+        <Loading />
       ) : (
         <main
           className={`flex min-h-screen items-center justify-between ${bg} bg-no-repeat bg-cover text-white`}
@@ -180,14 +181,6 @@ export default function Home() {
                 />
               ))}
             </div>
-
-            {/* <div className="flex justify-around border-t-2 border-slate-400 pt-8">
-              <WeatherDivForAWeek />
-              <WeatherDivForAWeek />
-              <WeatherDivForAWeek />
-              <WeatherDivForAWeek />
-              <WeatherDivForAWeek />
-            </div> */}
           </div>
         </main>
       )}
