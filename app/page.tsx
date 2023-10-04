@@ -5,9 +5,6 @@ import {
   faWind,
   faEye,
   faGauge,
-  faClock,
-  faSun,
-  faMoon,
   faMapPin,
   faCloud,
   faTemperatureHigh,
@@ -23,34 +20,34 @@ import { Suspense, useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "./loading";
 
-interface WeatherData {
+interface IList {
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    humidity: number;
+    pressure: number;
+  };
+  weather: [{ name: string; description: string }];
+  wind: {
+    speed: number;
+    deg: number;
+  };
+  visibility: number;
+  dt_txt: string;
+}
+
+interface IWeatherData {
   city: {
     name: string;
   };
-  list: [
-    {
-      main: {
-        temp: number;
-        feels_like: number;
-        temp_min: number;
-        temp_max: number;
-        humidity: number;
-        pressure: number;
-      };
-      weather: [{ name: string; description: string }];
-      wind: {
-        speed: number;
-        deg: number;
-      };
-      visibility: number;
-      dt_txt: string;
-    }
-  ];
+  list: [IList];
 }
 
 export default function Home() {
   const [location, setLocation] = useState<any>(null);
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [weatherData, setWeatherData] = useState<IWeatherData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -67,7 +64,7 @@ export default function Home() {
         const weatherApiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=afa686b6ddf43261ad3dc386077429f8`;
 
         axios
-          .get<WeatherData>(weatherApiUrl)
+          .get<IWeatherData>(weatherApiUrl)
           .then((weatherResponse) => {
             setWeatherData(weatherResponse.data);
           })
@@ -165,18 +162,15 @@ export default function Home() {
                 <WeatherDivForADay
                   temp={Math.round(data.main.temp - 273)}
                   name={data.weather[0].name}
-                  time={data.dt_txt}
-                  day={""}
+                  time={data.dt_txt.split(" ")[1]}
+                  day={
+                    data.dt_txt.split(" ")[0] ===
+                    weatherData?.list[0].dt_txt.split(" ")[0]
+                      ? "Today"
+                      : "Tomorrow"
+                  }
                 />
               ))}
-              {/* <WeatherDivForADay temp={0} name={""} rain={0} time={""} day={""} />
-              <WeatherDivForADay />
-              <WeatherDivForADay />
-              <WeatherDivForADay />
-              <WeatherDivForADay />
-              <WeatherDivForADay />
-              <WeatherDivForADay />
-              <WeatherDivForADay /> */}
             </div>
 
             <div className="flex justify-around border-t-2 border-slate-400 pt-8">
