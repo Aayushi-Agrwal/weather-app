@@ -16,9 +16,8 @@ import {
   WeatherDivForADay,
   WeatherDivForAWeek,
 } from "./Components";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import Loading from "./loading";
 
 interface IList {
   main: {
@@ -29,7 +28,7 @@ interface IList {
     humidity: number;
     pressure: number;
   };
-  weather: [{ name: string; description: string }];
+  weather: [{ main: string; description: string }];
   wind: {
     speed: number;
     deg: number;
@@ -81,12 +80,21 @@ export default function Home() {
     );
   }, []); // Empty dependency array ensures that this effect runs once after the initial render
 
+  const bg =
+    weatherData?.list[0].weather[0].main === "Clear"
+      ? "bg-[url(/clear-sky.jpg)]"
+      : weatherData?.list[0].weather[0].main === "Rain"
+      ? "bg-[url(/heavy-rain.jpg)]"
+      : "";
+
   return (
     <>
       {loading ? (
         <div>Loading</div>
       ) : (
-        <main className="flex min-h-screen items-center justify-between bg-[url(/storm-clouds.png)] bg-no-repeat bg-cover text-white">
+        <main
+          className={`flex min-h-screen items-center justify-between ${bg} bg-no-repeat bg-cover text-white`}
+        >
           <div className="border-r-2 border-x-slate-400 w-1/6 h-screen flex flex-col px-2 items-center justify-around py-12">
             <div className="flex gap-2">
               <h1 className="text-6xl">
@@ -161,7 +169,7 @@ export default function Home() {
               {weatherData?.list.slice(0, 8).map((data) => (
                 <WeatherDivForADay
                   temp={Math.round(data.main.temp - 273)}
-                  name={data.weather[0].name}
+                  name={data.weather[0].main}
                   time={data.dt_txt.split(" ")[1]}
                   day={
                     data.dt_txt.split(" ")[0] ===
@@ -173,13 +181,13 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="flex justify-around border-t-2 border-slate-400 pt-8">
+            {/* <div className="flex justify-around border-t-2 border-slate-400 pt-8">
               <WeatherDivForAWeek />
               <WeatherDivForAWeek />
               <WeatherDivForAWeek />
               <WeatherDivForAWeek />
               <WeatherDivForAWeek />
-            </div>
+            </div> */}
           </div>
         </main>
       )}
