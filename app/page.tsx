@@ -11,12 +11,7 @@ import {
   faTemperatureLow,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Loading,
-  WeatherDetailsDay,
-  WeatherDivForADay,
-  WeatherDivForAWeek,
-} from "./Components";
+import { Loading, WeatherDetailsDay, WeatherDivForADay } from "./Components";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -46,7 +41,6 @@ interface IWeatherData {
 }
 
 export default function Home() {
-  const [location, setLocation] = useState<any>(null);
   const [weatherData, setWeatherData] = useState<IWeatherData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -55,9 +49,6 @@ export default function Home() {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
-
-        // Set latitude and longitude as the user's location
-        setLocation({ latitude, longitude });
 
         // Fetch weather data using OpenWeatherMap API
         const weatherApiKey = "YOUR_OPENWEATHERMAP_API_KEY";
