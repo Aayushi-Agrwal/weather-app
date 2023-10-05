@@ -12,7 +12,6 @@ Welcome to the Weather App! This application provides real-time weather informat
 - **Frontend:** Next.js
 - **Backend:** OpenWeatherMap API
 - **Styling:** Tailwind
-- **Deployment:** Netlify
 
 ## Usage
 
