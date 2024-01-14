@@ -77,6 +77,10 @@ export default function Home() {
       ? "bg-[url(/clear-sky.jpg)]"
       : weatherData?.list[0].weather[0].main === "Rain"
       ? "bg-[url(/heavy-rain.jpg)]"
+      : weatherData?.list[0].weather[0].main === "Snow"
+      ? "bg-[url(/heavy-snow.jpg)]"
+      : weatherData?.list[0].weather[0].main === "Cloudy"
+      ? "bg-[url(/storm-clouds.jpg)]"
       : "";
 
   return (
@@ -158,7 +162,8 @@ export default function Home() {
             </div>
 
             <div className="flex w-full justify-around px-16">
-              {weatherData?.list.slice(0, 8).map((data) => (
+              {weatherData?.list.slice(0, 8).map((data, indx) => (
+          <div key={indx}>
                 <WeatherDivForADay
                   temp={Math.round(data.main.temp - 273)}
                   name={data.weather[0].main}
@@ -170,6 +175,7 @@ export default function Home() {
                       : "Tomorrow"
                   }
                 />
+            </div>
               ))}
             </div>
           </div>
